@@ -1,5 +1,5 @@
 import { HttpRouterService } from '@adonisjs/core/types'
-import userRoutes from './roles/user/routes.js'
+import userAllRoutes from './roles/user/routes.js'
 import postRoutes from './posts/routes.js'
 
 /**
@@ -15,7 +15,7 @@ export default function apiV1Routes(router: HttpRouterService) {
 
       // User | 'user'
       router.group(() => {
-        userRoutes(router)
+        userAllRoutes(router)
       })
 
       // Post | 'posts'

@@ -11,6 +11,7 @@ const authConfig = defineConfig({
         model: () => import('#models/user'),
       }),
     }),
+
     // User
     user: tokensGuard({
       provider: tokensUserProvider({
@@ -18,6 +19,7 @@ const authConfig = defineConfig({
         model: () => import('#models/user'), // User
       }),
     }),
+
     // Admin *
     admin: tokensGuard({
       provider: tokensUserProvider({

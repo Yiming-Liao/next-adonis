@@ -17,6 +17,9 @@ export default class extends BaseSchema {
       table.timestamp('email_verified_at').nullable() // Email 驗證時間
       table.string('password_reset_token').nullable() // 重置密碼令牌
       table.timestamp('password_reset_expires_at').nullable() // 重置密碼過期時間
+
+      table.string('refresh_token').nullable() // Refresh Token
+      table.timestamp('refresh_token_expires_at').nullable() // Refresh Token 過期時間
     })
   }
 

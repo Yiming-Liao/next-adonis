@@ -2,26 +2,30 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+#loading {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 2000;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+#loading div {
+  position: absolute;
+  left: 20px;
+  bottom: 20px;
+  width: 64px;
+  height: 64px;
+  border: 8px solid gray;
+  border-left: 0;
+  border-right: 0;
+  border-radius: 100%;
+  animation: spin infinite 1s linear;
 }
 
-body {
-  color: var(--foreground);
-  background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
-}
-
-@layer utilities {
-  .text-balance {
-    text-wrap: balance;
+@keyframes spin {
+  100% {
+    transform: rotate(360deg);
   }
 }

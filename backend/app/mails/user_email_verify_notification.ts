@@ -1,8 +1,9 @@
 import { BaseMail } from '@adonisjs/mail'
 import User from '#models/user'
 import crypto from 'node:crypto'
+import env from '#start/env'
 
-export default class VerifyEmailNotification extends BaseMail {
+export default class UserEmailVerifyNotification extends BaseMail {
   subject = 'Verify email'
   private user!: User // 使用非空斷言運算符
 
@@ -21,7 +22,6 @@ export default class VerifyEmailNotification extends BaseMail {
   private async generateEmailVerifyToken(): Promise<string> {
     const token = crypto.randomBytes(20).toString('hex') // 生成隨機令牌
     this.user.emailVerifyToken = token // 保存生成的令牌
-    this.user.emailVerifiedAt = null // 重新設置驗證時間
     await this.user.save() // 確保將變更持久化到資料庫中
     return token
   }
@@ -29,11 +29,11 @@ export default class VerifyEmailNotification extends BaseMail {
   async prepare() {
     const emailVerifyToken = await this.generateEmailVerifyToken() // 在這裡生成令牌
 
-    const verificationUrl = `https://myapp.com/verify-email?token=${emailVerifyToken}`
+    const emailVerifyUrl = `${env.get('FRONTEND_URL')}/email-verify?emailVerifyToken=${emailVerifyToken}`
 
     this.message.html(`
       <h1> Verify email address </h1>
-      <p><a href="${verificationUrl}">Click here to verify your email address</a></p>
+      <p><a href="${emailVerifyUrl}">Click here to verify your email address</a></p>
     `)
   }
 }
